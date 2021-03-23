@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">DSC- SSGMCE</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="todo">TODO</string>
+    <string name="log_in">Log in</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="emailId_name">Enter Your Email Id</string>
+</resources>

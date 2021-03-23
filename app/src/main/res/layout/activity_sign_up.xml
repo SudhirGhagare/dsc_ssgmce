@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_list"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:context=".signUp">
+
+    <ImageView
+        android:id="@+id/boy_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="50dp"
+        android:src="@drawable/boy_avatar"
+        android:onClick="profileImage"/>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
+        <RadioButton
+            android:id="@+id/Radio_Button_male"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Male"/>
+        <RadioButton
+            android:id="@+id/Radio_Button_Female"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:text="Female"/>
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/full_name"
+        android:layout_width="312dp"
+        android:layout_height="53dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:drawableLeft="@drawable/ic_baseline_person_add_alt_1_24"
+        android:hint="Enter your Full Name"
+        android:textColorHint="#FDFCFF"
+        />
+
+    <EditText
+        android:id="@+id/phone_Number"
+        android:layout_width="312dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:drawableLeft="@drawable/ic_baseline_phone_24"
+        android:hint="Phone number "
+        android:inputType="number"
+        android:textColorHint="#F9F9F9" />
+
+    <EditText
+        android:id="@+id/emailId"
+        android:layout_width="312dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:drawableLeft="@drawable/ic_baseline_mail_24"
+        android:hint="Enter your Email ID"
+        android:inputType="text"
+        android:textColorHint="#F5F5F7" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true">
+
+    <EditText
+        android:id="@+id/password_sign_Up"
+        android:layout_width="312dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:drawableLeft="@drawable/ic_baseline_lock_24"
+        android:hint="Enter Password"
+        android:textColorHint="#F9F9F9" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/confirm_password_sign_Up"
+            android:layout_width="312dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:drawableLeft="@drawable/ic_baseline_lock_24"
+            android:hint="Confirm your Enter Password"
+            android:textColorHint="#F9F9F9" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/register_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:background="@color/purple_700"
+        android:onClick="resisterUser"
+        android:padding="20dp"
+        android:text="Register User"
+        android:textColor="@color/white" />
+
+    <ProgressBar
+        android:id="@+id/progress_Bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
+</LinearLayout>
