@@ -213,7 +213,7 @@ public class signUp extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 final Map<String, Object> map = new HashMap<>();
                                 map.put("Profile  Image",uri.toString());
-                                map.put("User Name",username);
+
 
                                 mRealTimeDatabase.child(UserID).addValueEventListener(new ValueEventListener() {
                                     @Override
@@ -228,7 +228,7 @@ public class signUp extends AppCompatActivity {
                                     }
                                 });
 
-                                Toast.makeText(getApplicationContext(),"Updated Successfully",Toast.LENGTH_LONG).show();
+
                             }
                         });
                     }
@@ -256,8 +256,5 @@ public class signUp extends AppCompatActivity {
 
             }
         });
-    }
-
-    public void profileImage(View view) {
     }
 }

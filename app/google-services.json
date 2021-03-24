@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "658427371743",
+    "firebase_url": "https://dsc--ssgmce-default-rtdb.firebaseio.com",
     "project_id": "dsc--ssgmce",
     "storage_bucket": "dsc--ssgmce.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "658427371743-ape040ouulvaaks3357gk87migcvfgdm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dsc_ssgmce",
+            "certificate_hash": "314154f98d3f19bf50f7ff52c62148be765b9868"
+          }
+        },
         {
           "client_id": "658427371743-tfmahpo2116onfq64n8288lacbo83tvs.apps.googleusercontent.com",
           "client_type": 3

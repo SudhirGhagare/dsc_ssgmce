@@ -17,7 +17,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="50dp"
         android:src="@drawable/boy_avatar"
-        android:onClick="profileImage"/>
+        />
 
     <RadioGroup
         android:id="@+id/radioGender"
