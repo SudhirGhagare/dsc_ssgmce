@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -67,8 +68,8 @@ public class signUp extends AppCompatActivity {
     Bitmap bitmap;
     String UserID = "";
 
-
-
+    RadioButton radioButton;
+    RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,9 @@ public class signUp extends AppCompatActivity {
         mEmailId = findViewById(R.id.emailId);
         mPasswordSignUp = findViewById(R.id.password_sign_Up);
 
+        radioGroup = findViewById(R.id.radioGender);
+
+
         progressBar = findViewById(R.id.progress_Bar);
         fAuth = FirebaseAuth.getInstance();
 
@@ -101,6 +105,7 @@ public class signUp extends AppCompatActivity {
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Dexter.withContext(getApplicationContext())
                         .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                         .withListener(new PermissionListener() {
@@ -129,6 +134,7 @@ public class signUp extends AppCompatActivity {
         });
 
 
+
     }
 
     @Override
@@ -154,15 +160,18 @@ public class signUp extends AppCompatActivity {
 
     public void resisterUser(View view) {
 
+        int selectedId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(selectedId);
+
         String username = mFullName.getText().toString().trim();
         String email = mEmailId.getText().toString().trim();
         String phoneNumber = mPhoneNumber.getText().toString().trim();
         String passWord = mPasswordSignUp.getText().toString().trim();
+        String gender = radioButton.getText().toString().trim();
 
-        User user = new User(username, email , passWord , phoneNumber);
+
+        User user = new User(username, email , passWord , phoneNumber,gender);
         mRealTimeDatabase.push().setValue(user);
-
-
 
         if (TextUtils.isEmpty(email)){
             mEmailId.setError("Email is Required");
@@ -194,7 +203,7 @@ public class signUp extends AppCompatActivity {
        });
 
 
-        final StorageReference uploader = storageReference.child("profileimages/"+"img"+System.currentTimeMillis());
+        final StorageReference uploader = storageReference.child("Profile Images "+"img"+System.currentTimeMillis());
         uploader.putFile(filepath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
