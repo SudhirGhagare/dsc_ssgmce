@@ -25,4 +25,19 @@
     />
 
 
+
+    <fragment
+    android:id="@+id/navigation_profile"
+    android:name="com.example.dsc_ssgmce.ui.notifications.NotificationsFragment"
+    android:label="@string/title_notifications"
+    tools:layout="@layout/fragment_notifications"
+    />
+
+    <fragment
+        android:id="@+id/navigation_info"
+        android:name="com.example.dsc_ssgmce.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications"
+        />
+
 </navigation>

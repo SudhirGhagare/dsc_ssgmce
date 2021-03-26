@@ -7,4 +7,9 @@
     <string name="log_in">Log in</string>
     <string name="sign_up">Sign Up</string>
     <string name="emailId_name">Enter Your Email Id</string>
+    <string name="info">Info</string>
+    <string name="profile">Profile</string>
+    <string name="facebook_app_id">1822135521302226</string>
+    <string name="fb_login_protocol_scheme">fb1822135521302226</string>
+    <string name="forgot_password">Forgot password?</string>
 </resources>

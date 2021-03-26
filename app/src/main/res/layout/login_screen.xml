@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Forgot password?"
+            android:text="@string/forgot_password"
             android:textColor="@color/black"
             android:textSize="15dp" />
 
@@ -118,14 +118,6 @@
                 android:layout_margin="20dp"/>
 
 
-            <ImageView
-                android:id="@+id/facebook_sign_in"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/facebook_logo"
-                tools:layout_editor_absoluteX="56dp"
-                tools:layout_editor_absoluteY="578dp"
-                android:layout_margin="20dp"/>
 
 
             <ImageView
@@ -138,6 +130,15 @@
                 android:layout_margin="20dp"/>
         </GridLayout>
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebook_sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
 
 
     </LinearLayout>
