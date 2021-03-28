@@ -39,10 +39,14 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.OAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class login_screen<GoogleSignInClient> extends Activity {
@@ -58,7 +62,7 @@ public class login_screen<GoogleSignInClient> extends Activity {
 
     private static final int RC_SIGN_IN = 9001;
     private CallbackManager mCallbackManager;
-    private static final String TAG = "FacebookLogin";
+    private static final String TAG = "Login";
 
     com.google.android.gms.auth.api.signin.GoogleSignInClient mGoogleSignInClient;
 
@@ -90,6 +94,104 @@ public class login_screen<GoogleSignInClient> extends Activity {
 
         mGoogleSignInClient =  GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
+
+        // Request read access to a user's email addresses.
+        // This must be preconfigured in the app's API permissions.
+
+        mGitHubSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OAuthProvider.Builder provider = OAuthProvider.newBuilder("github.com");
+                provider.addCustomParameter("login", "your-email@gmail.com");
+                List<String> scopes =
+                        new ArrayList<String>() {
+                            {
+                                add("user:email");
+                            }
+                        };
+                provider.setScopes(scopes);
+
+                Task<AuthResult> pendingResultTask = mAuth.getPendingAuthResult();
+                if (pendingResultTask != null) {
+                    // There's something already here! Finish the sign-in for your user.
+                    pendingResultTask
+                            .addOnSuccessListener(
+                                    new OnSuccessListener<AuthResult>() {
+                                        @Override
+                                        public void onSuccess(AuthResult authResult) {
+
+                                             authResult.getAdditionalUserInfo().getProfile();
+
+                                        }
+                                    })
+                            .addOnFailureListener(
+                                    new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Handle failure.
+                                        }
+                                    });
+
+                    // The user is already signed-in.
+
+
+
+                } else {
+                    // There's no pending result so you need to start the sign-in flow.
+                    // See below.
+                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+                    firebaseUser
+                            .startActivityForLinkWithProvider( login_screen.this, provider.build())
+                            .addOnSuccessListener(
+                                    new OnSuccessListener<AuthResult>() {
+                                        @Override
+                                        public void onSuccess(AuthResult authResult) {
+                                            // GitHub credential is linked to the current user.
+                                            // IdP data available in
+                                            authResult.getAdditionalUserInfo().getProfile();
+                                            // The OAuth access token can also be retrieved:
+                                            authResult.getCredential().getSignInMethod();
+                                        }
+                                    })
+                            .addOnFailureListener(
+                                    new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Handle failure.
+                                            Toast.makeText(login_screen.this,"Login Error :"+e.getMessage(),Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+
+                    // The user is already signed-in.
+
+                    firebaseUser
+                            .startActivityForReauthenticateWithProvider(login_screen.this, provider.build())
+                            .addOnSuccessListener(
+                                    new OnSuccessListener<AuthResult>() {
+                                        @Override
+                                        public void onSuccess(AuthResult authResult) {
+                                            // User is re-authenticated with fresh tokens and
+                                            // should be able to perform sensitive operations
+                                            // like account deletion and email or password
+                                            // update.
+                                        }
+                                    })
+                            .addOnFailureListener(
+                                    new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Handle failure.
+                                        }
+                                    });
+
+                }
+
+            }
+        });
+
+
+
 
         mGoogleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,10 +229,11 @@ public class login_screen<GoogleSignInClient> extends Activity {
                 EditText resetMail = new EditText(v.getContext());
                 AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
                 passwordResetDialog.setTitle("Reset Password");
-                passwordResetDialog.setMessage("Enter Your Email ID to Recevied Reset Link?");
                 passwordResetDialog.setView(resetMail);
+                passwordResetDialog.setMessage(" \n Enter your Email ID to Receive Password Reset Email ");
+                passwordResetDialog.setIcon(R.drawable.logo);
 
-                 passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                 passwordResetDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                      @Override
                      public void onClick(DialogInterface dialog, int which) {
 
@@ -172,15 +275,37 @@ public class login_screen<GoogleSignInClient> extends Activity {
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            currentUser.reload();
+        }
 
     }
 
 
-
     public void logIn(View view) {
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        String email = mUserName.getText().toString().trim();
+        String password = mPassword.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(login_screen.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+                    }
+                });
+
 
         Intent intent = new Intent(login_screen.this, MainActivity.class);
         startActivity(intent);
@@ -267,6 +392,8 @@ public class login_screen<GoogleSignInClient> extends Activity {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
+
 
    
 }

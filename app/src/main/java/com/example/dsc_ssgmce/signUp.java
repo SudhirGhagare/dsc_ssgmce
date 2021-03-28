@@ -51,9 +51,11 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class signUp extends AppCompatActivity {
 
-    ImageView mImageView;
+    CircleImageView mImageView;
     EditText mFullName;
     EditText mPhoneNumber;
     EditText mPasswordSignUp;
@@ -86,7 +88,7 @@ public class signUp extends AppCompatActivity {
         animationDrawable.start();
 
         mFullName = findViewById(R.id.full_name);
-        mImageView = findViewById(R.id.boy_icon);
+        mImageView = findViewById(R.id.profile_image);
         mPhoneNumber = findViewById(R.id.phone_Number);
         mEmailId = findViewById(R.id.emailId);
         mPasswordSignUp = findViewById(R.id.password_sign_Up);
@@ -203,7 +205,7 @@ public class signUp extends AppCompatActivity {
        });
 
 
-        final StorageReference uploader = storageReference.child("Profile Images "+"img"+System.currentTimeMillis());
+        final StorageReference uploader = storageReference.child("Profile Images"+"img"+System.currentTimeMillis());
         uploader.putFile(filepath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -213,7 +215,7 @@ public class signUp extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 final Map<String, Object> map = new HashMap<>();
                                 map.put("Profile  Image",uri.toString());
-
+                                map.put("User Name", username);
 
                                 mRealTimeDatabase.child(UserID).addValueEventListener(new ValueEventListener() {
                                     @Override

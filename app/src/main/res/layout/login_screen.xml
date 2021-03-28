@@ -61,6 +61,8 @@
                 android:layout_marginTop="30dp"
                 android:drawableLeft="@drawable/ic_baseline_password_24"
                 android:inputType="textPassword"
+                android:hint="Enter Your Password"
+                android:textColorHint="@color/white"
                 android:paddingStart="10dp"
                 android:paddingLeft="10dp"
                 android:paddingEnd="10dp"
