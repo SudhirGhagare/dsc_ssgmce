@@ -8,3 +8,5 @@ Basic primary Motto behind Creating an app : Learn and Grow
 + [Android Fundamental Courses in Java](https://developer.android.com/courses/fundamentals-training/overview-v2)
 
 ## Screenshots
+| ![](https://github.com/SudhirGhagare/dsc_ssgmce/blob/master/Login_screen_SS.jpg) | ![](https://github.com/SudhirGhagare/dsc_ssgmce/blob/master/Sign_UP%20SS.jpg) |
+| --- | --- |
